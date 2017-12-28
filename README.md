@@ -1,6 +1,5 @@
 # JiraWorklog
-A simple tray utility to help logging work in Jira.
-Written in .NET
+A simple .NET tray utility for logging work in Jira.
 
 # TODO
 * Daily reminders

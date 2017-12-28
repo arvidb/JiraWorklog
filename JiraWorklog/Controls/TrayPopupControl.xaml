@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="JiraWorklog.Controls.TrayPopupControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:JiraWorklog.Controls"
+             xmlns:vmDesign="clr-namespace:JiraWorklog.ViewModels.Design"
+             xmlns:converters="clr-namespace:JiraWorklog.Converters"
+             xmlns:helpers="clr-namespace:JiraWorklog.Helpers"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d" 
+             MinHeight="50" Width="350">
+    <UserControl.Resources>
+        <converters:DateTimeToSimpleStringConverter x:Key="DateTimeToSimpleStringConverter"/>
+        <converters:DateTimeToColorConverter x:Key="DateTimeToColorConverter"/>
+        <vmDesign:DesignTrayViewModel x:Key="DesignTrayViewModel"/>
+    </UserControl.Resources>
+    <Grid Background="{DynamicResource ControlBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Label Content="My Assigned Issues" FontWeight="Bold" FontSize="14"/>
+        <ListView Grid.Row="1" d:DataContext="{StaticResource DesignTrayViewModel}"
+                  ItemsSource="{Binding Issues}">
+            <ListView.Style>
+                <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource {x:Type ListView}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Issues.Count}" Value="0">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListView">
+                                        <TextBlock Text="No issues found" Margin="5" Foreground="{DynamicResource BlackBrush}"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Style>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource MetroListViewItem}">
+                    <Setter Property="BorderBrush" Value="DimGray" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.ItemClickCommand}" 
+                                                       CommandParameter="{Binding}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Content="{Binding Summary}" Padding="1"/>
+                        <TextBlock Grid.Column="1" 
+                                   HorizontalAlignment="Right" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,0,5,0">
+                            <Run Text="{Binding WorklogCollection.TotalLogged, Mode=OneWay}"/>h
+                        </TextBlock>
+                        <Label Grid.Row="1" Grid.Column="0" Padding="1"
+                               Content="{Binding WorklogCollection.LastLogged, Converter={StaticResource DateTimeToSimpleStringConverter}}"
+                               Foreground="{Binding WorklogCollection.LastLogged, Converter={StaticResource DateTimeToColorConverter}}"
+                               FontSize="10" FontStyle="Italic"/>
+                        <Label Grid.Column="1" Grid.Row="1" 
+                               Content="{Binding ProjectName}" 
+                               Padding="1" Margin="0,0,5,0"
+                               HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

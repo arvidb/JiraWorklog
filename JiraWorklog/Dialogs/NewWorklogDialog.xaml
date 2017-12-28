@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="JiraWorklog.Dialogs.NewWorklogDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:JiraWorklog.Converters"
+             xmlns:local="clr-namespace:JiraWorklog.Dialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Height="200" Width="250">
+    <UserControl.Resources>
+        <converters:HoursToSecondsConverter x:Key="HoursToSecondsConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--Date, time, time, comment-->
+        <DatePicker Grid.Row="0" SelectedDate="{Binding NewEntry.Started}"/>
+        <controls:TimePicker Grid.Row="1"  SelectedTime="{Binding NewEntry.StartedTimespanProxy}" SelectedTimeFormat="Short"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBox controls:TextBoxHelper.Watermark="Hours spent" Width="100" Margin="0,0,25,0"
+                     Text="{Binding NewEntry.TimeSpentSeconds, Converter={StaticResource HoursToSecondsConverter}}"/>
+            <Button Content="8h" Width="35" Command="{Binding SetHoursCommand}" CommandParameter="8"/>
+            <Button Content="4h" Width="35" Command="{Binding SetHoursCommand}" CommandParameter="4"/>
+            <Button Content="1h" Width="35" Command="{Binding SetHoursCommand}" CommandParameter="1"/>
+        </StackPanel>
+        <TextBox Grid.Row="3" controls:TextBoxHelper.Watermark="Comment" Text="{Binding NewEntry.Comment}"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="75" Content="Save Log" Margin="5"
+                    Command="{Binding SaveCommand}" Style="{DynamicResource AccentedSquareButtonStyle}"
+                    CommandParameter="{Binding ElementName=worklogWindow}"/>
+            <Button Width="75" Content="Cancel" Margin="5" Style="{DynamicResource SquareButtonStyle}"
+                    Command="{Binding CancelCommand}" 
+                    CommandParameter="{Binding ElementName=worklogWindow}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

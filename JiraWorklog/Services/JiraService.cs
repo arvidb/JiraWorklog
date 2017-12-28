@@ -1,5 +1,4 @@
-﻿using AdysTech.CredentialManager;
-using JiraWorklog.Helpers;
+﻿using JiraWorklog.Helpers;
 using JiraWorklog.Models;
 using Newtonsoft.Json;
 using NLog;

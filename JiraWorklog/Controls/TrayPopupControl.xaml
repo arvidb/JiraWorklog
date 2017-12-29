@@ -4,17 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JiraWorklog.Controls"
-             xmlns:vmDesign="clr-namespace:JiraWorklog.ViewModels.Design"
              xmlns:converters="clr-namespace:JiraWorklog.Converters"
              xmlns:helpers="clr-namespace:JiraWorklog.Helpers"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             MinHeight="50" Width="350">
+             MinHeight="50" Width="350"
+             DataContext="{Binding Path=TrayPopupViewModel, Source={StaticResource ViewModelLocator}}">
     <UserControl.Resources>
         <converters:DateTimeToSimpleStringConverter x:Key="DateTimeToSimpleStringConverter"/>
         <converters:DateTimeToColorConverter x:Key="DateTimeToColorConverter"/>
-        <vmDesign:DesignTrayViewModel x:Key="DesignTrayViewModel"/>
     </UserControl.Resources>
     <Grid Background="{DynamicResource ControlBackgroundBrush}">
         <Grid.RowDefinitions>
@@ -23,8 +22,7 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <Label Content="My Assigned Issues" FontWeight="Bold" FontSize="14"/>
-        <ListView Grid.Row="1" d:DataContext="{StaticResource DesignTrayViewModel}"
-                  ItemsSource="{Binding Issues}">
+        <ListView Grid.Row="1" ItemsSource="{Binding Issues}">
             <ListView.Style>
                 <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource {x:Type ListView}}">
                     <Style.Triggers>

@@ -16,8 +16,7 @@
                   IconSource="/JiraWorklog;component/Resources/TrayIcon.ico"
                   NoLeftClickDelay="True" TrayPopupOpen="tbIcon_TrayPopupOpen">
             <tb:TaskbarIcon.TrayPopup>
-                <ctrls:TrayPopupControl x:Name="popupCtrl" DataContextChanged="TrayPopupControl_DataContextChanged" 
-                                        DataContext="{Binding Path=TrayPopupViewModel, Source={StaticResource ViewModelLocator}}">
+                <ctrls:TrayPopupControl x:Name="popupCtrl" DataContextChanged="TrayPopupControl_DataContextChanged">
                 </ctrls:TrayPopupControl>
             </tb:TaskbarIcon.TrayPopup>
             <tb:TaskbarIcon.ContextMenu>

@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace JiraWorklog.ViewModels
 {
-    public class TrayPopupViewModel : ObservableObject
+    public class TrayPopupViewModel : ObservableObject, ITrayPopupViewModel
     {
         private static Logger Logger => LogManager.GetCurrentClassLogger();
 

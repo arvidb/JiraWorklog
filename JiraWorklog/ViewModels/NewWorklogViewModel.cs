@@ -13,7 +13,7 @@ using JiraWorklog.Events;
 
 namespace JiraWorklog.ViewModels
 {
-    public class NewWorklogViewModel : IDialogResultVMHelper
+    public class NewWorklogViewModel : ObservableObject, IDialogResultVMHelper
     {
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }

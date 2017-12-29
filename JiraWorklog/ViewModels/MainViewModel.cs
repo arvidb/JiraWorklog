@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace JiraWorklog.ViewModels
 {
-    class MainViewModel
+    class MainViewModel : ObservableObject
     {
         public ICommand LogoutCommand { get; }
 

@@ -2,12 +2,15 @@
 using Autofac.Core;
 using JiraWorklog.Services;
 using JiraWorklog.ViewModels;
+using JiraWorklog.ViewModels.Design;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace JiraWorklog
 {
@@ -16,6 +19,8 @@ namespace JiraWorklog
         private static Logger Logger => LogManager.GetCurrentClassLogger();
 
         private static ILifetimeScope _rootScope;
+
+        private bool IsInDesignMode => DesignerProperties.GetIsInDesignMode(new DependencyObject());
 
         /// <summary>
         /// instantiate with external builder
@@ -48,9 +53,17 @@ namespace JiraWorklog
 
                 // View models
                 builder.RegisterType<MainViewModel>();
-                builder.RegisterType<TrayPopupViewModel>();
                 builder.RegisterType<NewWorklogViewModel>();
                 builder.RegisterType<LoginViewModel>();
+
+                if (IsInDesignMode)
+                {
+                    builder.RegisterType<DesignTrayViewModel>().As<ITrayPopupViewModel>();
+                }
+                else
+                {
+                    builder.RegisterType<TrayPopupViewModel>().As<ITrayPopupViewModel>();
+                }
 
                 _rootScope = builder.Build();
             }

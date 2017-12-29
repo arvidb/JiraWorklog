@@ -150,7 +150,8 @@ namespace JiraWorklog.Services
             catch (Exception e)
             {
                 result.Successfull = false;
-                result.Message = e.Message;
+                result.Message = "Unknown error";
+                Logger.Error(e);
             }
 
             return await Task.FromResult(result);

@@ -118,8 +118,8 @@
       <DependentUpon>NewWorklogDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\RequestCloseDialogEventArgs.cs" />
-    <Compile Include="Helpers\IDialogResultVMHelper.cs" />
-    <Compile Include="Helpers\IObservableObject.cs" />
+    <Compile Include="Helpers\Interfaces\IDialogResultVMHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IObservableObject.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
@@ -128,13 +128,14 @@
     <Compile Include="Models\JiraWorklog.cs" />
     <Compile Include="Helpers\ConnectionResult.cs" />
     <Compile Include="Services\CredentialService.cs" />
-    <Compile Include="Services\ICredentialService.cs" />
-    <Compile Include="Services\IIssueTrackerService.cs" />
-    <Compile Include="Services\IUIService.cs" />
+    <Compile Include="Services\Interfaces\ICredentialService.cs" />
+    <Compile Include="Services\Interfaces\IIssueTrackerService.cs" />
+    <Compile Include="Services\Interfaces\IUIService.cs" />
     <Compile Include="Services\JiraService.cs" />
     <Compile Include="Services\WPFUIService.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\Design\DesignTrayViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ITrayPopupViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NewWorklogViewModel.cs" />

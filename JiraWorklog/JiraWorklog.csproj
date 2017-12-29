@@ -134,6 +134,7 @@
     <Compile Include="Services\JiraService.cs" />
     <Compile Include="Services\WPFUIService.cs" />
     <Compile Include="ViewModelLocator.cs" />
+    <Compile Include="ViewModels\BaseDialogViewModel.cs" />
     <Compile Include="ViewModels\Design\DesignTrayViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ITrayPopupViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

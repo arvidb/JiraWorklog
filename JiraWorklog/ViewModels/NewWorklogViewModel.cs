@@ -13,7 +13,7 @@ using JiraWorklog.Events;
 
 namespace JiraWorklog.ViewModels
 {
-    public class NewWorklogViewModel : ObservableObject, IDialogResultVMHelper
+    public class NewWorklogViewModel : BaseDialogViewModel
     {
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
@@ -21,8 +21,6 @@ namespace JiraWorklog.ViewModels
         public ICommand SetHoursCommand { get; }
 
         private readonly IIssueTrackerService _issueTrackerService;
-        
-        public event EventHandler<RequestCloseDialogEventArgs> RequestCloseDialog;
         
         public JiraWorklogEntry NewEntry { get; set; } = new JiraWorklogEntry() {
             Started = DateTime.Now,
@@ -33,8 +31,8 @@ namespace JiraWorklog.ViewModels
         {
             _issueTrackerService = issueTrackerService;
 
-            SaveCommand = new RelayCommand(() => this.RequestCloseDialog?.Invoke(this, new RequestCloseDialogEventArgs(true)));
-            CancelCommand = new RelayCommand(() => this.RequestCloseDialog?.Invoke(this, new RequestCloseDialogEventArgs(false)));
+            SaveCommand = new RelayCommand(CloseDialog);
+            CancelCommand = new RelayCommand(CancelDialog);
 
             SetHoursCommand = new RelayCommand<string>(SetHours);
         }

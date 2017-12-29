@@ -11,10 +11,8 @@ using JiraWorklog.Services;
 
 namespace JiraWorklog.ViewModels
 {
-    public class LoginViewModel : ObservableObject, IDialogResultVMHelper
+    public class LoginViewModel : BaseDialogViewModel
     {
-        public event EventHandler<RequestCloseDialogEventArgs> RequestCloseDialog;
-
         public ICommand LoginCommand { get; }
 
         public string Url { get; set; }
@@ -53,7 +51,7 @@ namespace JiraWorklog.ViewModels
             var result = await _issueTrackerService.TryConnectAsync();
             if (result.Successfull)
             {
-                this.RequestCloseDialog?.Invoke(this, new RequestCloseDialogEventArgs(true));
+                CloseDialog();
             }
             else
             {

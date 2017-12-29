@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:JiraWorklog"
              xmlns:vm="clr-namespace:JiraWorklog.ViewModels"
              xmlns:dialogs="clr-namespace:JiraWorklog.Dialogs"
-             StartupUri="Windows/MainWindow.xaml">
+             StartupUri="Windows/MainWindow.xaml" Startup="Application_Startup" Exit="Application_Exit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
